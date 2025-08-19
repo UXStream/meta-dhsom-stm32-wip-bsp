@@ -4,6 +4,14 @@ else
   setenv bootpartition "${bootpart}"
 fi
 
+# Flip SYSCFG_DISPLAYCLKCR to ck_ker_ltdc
+mw 0x44235000 2
+
+# Turn on TCPP02 Vbus
+i2c dev 0
+i2c mw 0x20 6 0xbf
+i2c mw 0x34 0 0x1c
+
 setenv bootfile boot/fitImage
 setenv rootpartition ${bootpartition}
 
